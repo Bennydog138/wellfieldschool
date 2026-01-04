@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PastoralCare - Student Database</title>
+    <title>PastoralCare - Wellfield School</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -11,10 +11,10 @@
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #ddd6fe; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         .modal-overlay { background-color: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px); }
         .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-        .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); }
+        .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
     </style>
 </head>
 <body class="text-slate-800">
@@ -24,11 +24,11 @@
         <div id="login-screen" class="flex-grow flex items-center justify-center p-4 bg-slate-50">
             <div class="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-md border border-slate-100">
                 <div class="text-center mb-8">
-                    <div class="inline-flex items-center justify-center w-20 h-20 bg-violet-600 text-white rounded-2xl shadow-lg shadow-violet-200 mb-6">
+                    <div class="inline-flex items-center justify-center w-20 h-20 bg-blue-600 text-white rounded-2xl shadow-lg shadow-blue-200 mb-6">
                         <i class="fas fa-shield-halved text-4xl"></i>
                     </div>
-                    <h1 class="text-3xl font-bold text-slate-900 tracking-tight">Pastoral Portal</h1>
-                    <p class="text-slate-500 mt-2">Secure Information Management System</p>
+                    <h1 class="text-3xl font-bold text-slate-900 tracking-tight">Wellfield Portal</h1>
+                    <p class="text-slate-500 mt-2">Pastoral Information Management</p>
                 </div>
                 
                 <form id="login-form" class="space-y-5">
@@ -36,23 +36,24 @@
                         <label class="block text-sm font-semibold text-slate-700 mb-1.5 ml-1">Username</label>
                         <div class="relative">
                             <i class="fas fa-user absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                            <input type="text" id="username" required class="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-violet-400 outline-none transition-all" placeholder="Enter your username">
+                            <input type="text" id="username" required class="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-blue-400 outline-none transition-all" placeholder="Enter username">
                         </div>
                     </div>
                     <div>
                         <label class="block text-sm font-semibold text-slate-700 mb-1.5 ml-1">Password</label>
                         <div class="relative">
                             <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                            <input type="password" id="password" required class="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-violet-400 outline-none transition-all" placeholder="Enter your password">
+                            <input type="password" id="password" required class="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-blue-400 outline-none transition-all" placeholder="Enter password">
                         </div>
                     </div>
                     <div id="login-error" class="hidden text-red-600 text-sm font-medium bg-red-50 p-4 rounded-xl text-center border border-red-100">
                         Access denied. Incorrect credentials.
                     </div>
-                    <button type="submit" id="login-btn" class="w-full bg-violet-600 text-white font-bold py-4 rounded-2xl hover:bg-violet-700 transition-all shadow-xl shadow-violet-200 flex items-center justify-center gap-2 mt-4 text-lg">
+                    <button type="submit" id="login-btn" class="w-full bg-blue-600 text-white font-bold py-4 rounded-2xl hover:bg-blue-700 transition-all shadow-xl shadow-blue-200 flex items-center justify-center gap-2 mt-4 text-lg">
                         <span>Sign In</span>
                     </button>
                 </form>
+                <p class="mt-6 text-center text-xs text-slate-400">First time? Use admin / setup123</p>
             </div>
         </div>
 
@@ -60,12 +61,12 @@
         <div id="dashboard" class="hidden flex-grow flex flex-col">
             <nav class="bg-white border-b border-slate-100 px-8 py-4 flex items-center justify-between sticky top-0 z-50 shadow-sm">
                 <div class="flex items-center gap-4">
-                    <div class="bg-violet-600 p-2.5 rounded-xl text-white shadow-md shadow-violet-100">
-                        <i class="fas fa-database text-xl"></i>
+                    <div class="bg-blue-600 p-2.5 rounded-xl text-white shadow-md shadow-blue-100">
+                        <i class="fas fa-school text-xl"></i>
                     </div>
                     <div>
-                        <h2 class="font-extrabold text-slate-900 leading-tight">PastoralCare</h2>
-                        <p class="text-[10px] text-violet-500 font-bold uppercase tracking-wider" id="role-badge">Official Access</p>
+                        <h2 class="font-extrabold text-slate-900 leading-tight">Wellfield School</h2>
+                        <p class="text-[10px] text-blue-500 font-bold uppercase tracking-wider" id="role-badge">Loading Access...</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-6">
@@ -79,10 +80,10 @@
             <div class="flex flex-grow overflow-hidden">
                 <aside class="w-72 bg-white border-r border-slate-100 p-6 hidden lg:flex flex-col">
                     <div class="space-y-2 flex-grow">
-                        <button onclick="switchView('directory')" id="nav-directory" class="w-full flex items-center gap-3 px-5 py-4 rounded-2xl bg-violet-600 text-white font-bold shadow-lg shadow-violet-100 transition-all">
+                        <button onclick="switchView('directory')" id="nav-directory" class="w-full flex items-center gap-3 px-5 py-4 rounded-2xl bg-blue-600 text-white font-bold shadow-lg shadow-blue-100 transition-all">
                             <i class="fas fa-users"></i> Student Directory
                         </button>
-                        <button onclick="switchView('users')" id="nav-users" class="hidden w-full flex items-center gap-3 px-5 py-4 rounded-2xl text-slate-600 hover:bg-violet-50 hover:text-violet-600 font-bold transition-all">
+                        <button onclick="switchView('users')" id="nav-users" class="hidden w-full flex items-center gap-3 px-5 py-4 rounded-2xl text-slate-600 hover:bg-blue-50 hover:text-blue-600 font-bold transition-all">
                             <i class="fas fa-user-shield"></i> User Management
                         </button>
                     </div>
@@ -93,27 +94,30 @@
                         <header class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
                             <div>
                                 <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Students</h1>
-                                <p class="text-slate-500 font-medium">Confidential pastoral documentation</p>
+                                <p class="text-slate-500 font-medium">Internal Pastoral Records</p>
                             </div>
-                            <button id="btn-add-student" onclick="showAddStudentModal()" class="hidden bg-slate-900 hover:bg-black text-white px-6 py-3 rounded-2xl font-bold flex items-center gap-2 transition-all shadow-xl shadow-slate-200">
-                                <i class="fas fa-plus"></i> New Student Profile
+                            <button id="btn-add-student" onclick="toggleModal('add-student-modal')" class="hidden bg-slate-900 hover:bg-black text-white px-6 py-3 rounded-2xl font-bold flex items-center gap-2 transition-all shadow-xl shadow-slate-200">
+                                <i class="fas fa-plus"></i> New Student
                             </button>
                         </header>
-                        <div id="student-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"></div>
+                        
+                        <div class="mb-6">
+                            <input type="text" id="search-bar" onkeyup="filterStudents()" placeholder="Search by name or year group..." class="w-full max-w-md p-4 rounded-2xl border border-slate-200 outline-none focus:ring-2 focus:ring-blue-400">
+                        </div>
+
+                        <div id="student-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"></div>
                     </div>
 
                     <div id="view-users" class="hidden">
                         <header class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
-                            <div>
-                                <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">System Users</h1>
-                            </div>
-                            <button onclick="toggleModal('add-user-modal')" class="bg-violet-600 text-white px-6 py-3 rounded-2xl font-bold">Create Account</button>
+                            <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">System Access</h1>
+                            <button onclick="toggleModal('add-user-modal')" class="bg-blue-600 text-white px-6 py-3 rounded-2xl font-bold">Create User</button>
                         </header>
                         <div class="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm">
                             <table class="w-full text-left">
                                 <thead class="bg-slate-50 border-b border-slate-100">
                                     <tr>
-                                        <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase">User</th>
+                                        <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase">Username</th>
                                         <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase">Role</th>
                                         <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase">Actions</th>
                                     </tr>
@@ -127,73 +131,86 @@
         </div>
     </div>
 
-    <!-- Modals -->
+    <!-- Student Detail Modal -->
     <div id="student-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
         <div class="modal-overlay absolute inset-0" onclick="toggleModal('student-modal')"></div>
         <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl relative z-10 overflow-hidden flex flex-col max-h-[90vh]">
             <div class="p-8 border-b border-slate-50 flex items-center justify-between">
                 <div>
                     <h3 class="text-2xl font-extrabold text-slate-900" id="m-name">...</h3>
-                    <p class="text-sm font-bold text-violet-600" id="m-year">...</p>
+                    <p class="text-sm font-bold text-blue-600" id="m-year">...</p>
                 </div>
-                <button onclick="toggleModal('student-modal')" class="text-slate-300 text-3xl">&times;</button>
+                <button onclick="toggleModal('student-modal')" class="text-slate-300 text-3xl hover:text-slate-600">&times;</button>
             </div>
             <div class="p-8 overflow-y-auto bg-slate-50/30 space-y-6">
-                 <div id="m-needs" class="bg-amber-50 p-4 rounded-xl border border-amber-100 text-sm font-medium"></div>
-                 <div id="m-notes" class="space-y-4"></div>
+                 <div>
+                    <h4 class="text-xs font-bold uppercase text-slate-400 mb-2">Needs & Support</h4>
+                    <div id="m-needs" class="bg-white p-4 rounded-xl border border-slate-200 text-sm font-medium"></div>
+                 </div>
+                 <div>
+                    <h4 class="text-xs font-bold uppercase text-slate-400 mb-2">Pastoral Timeline</h4>
+                    <div id="m-notes" class="space-y-4"></div>
+                 </div>
             </div>
             <div class="p-6 bg-white border-t border-slate-50 flex justify-end gap-2">
-                <button id="btn-add-note-action" onclick="showNoteForm()" class="hidden bg-violet-600 text-white px-6 py-2 rounded-xl text-sm font-bold">Add Note</button>
+                <button id="btn-add-note-action" onclick="showNoteForm()" class="hidden bg-blue-600 text-white px-6 py-2 rounded-xl text-sm font-bold">Add Entry</button>
+                <button onclick="toggleModal('student-modal')" class="px-6 py-2 rounded-xl text-slate-500 font-bold">Close</button>
             </div>
         </div>
     </div>
 
+    <!-- Add Student Modal -->
     <div id="add-student-modal" class="hidden fixed inset-0 z-[110] flex items-center justify-center p-4">
         <div class="modal-overlay absolute inset-0" onclick="toggleModal('add-student-modal')"></div>
         <form id="student-form" class="bg-white rounded-3xl shadow-2xl w-full max-w-lg relative z-10 p-8 space-y-4">
             <h3 class="text-xl font-bold">New Student Profile</h3>
-            <input type="text" id="f-name" placeholder="Full Name" required class="w-full p-4 border rounded-xl outline-none focus:ring-2 focus:ring-violet-400">
+            <input type="text" id="f-name" placeholder="Full Name" required class="w-full p-4 border rounded-xl outline-none focus:ring-2 focus:ring-blue-400">
             <select id="f-year" class="w-full p-4 border rounded-xl">
                 <option>Year 7</option><option>Year 8</option><option>Year 9</option><option>Year 10</option><option>Year 11</option><option>Year 12</option><option>Year 13</option>
             </select>
-            <textarea id="f-needs" placeholder="Needs & Support" class="w-full p-4 border rounded-xl outline-none focus:ring-2 focus:ring-violet-400"></textarea>
-            <div class="flex justify-end gap-3">
-                <button type="button" onclick="toggleModal('add-student-modal')">Cancel</button>
-                <button type="submit" class="bg-black text-white px-6 py-2 rounded-xl">Create</button>
+            <textarea id="f-needs" placeholder="Pastoral Needs / Key Information" class="w-full p-4 border rounded-xl outline-none focus:ring-2 focus:ring-blue-400 h-32"></textarea>
+            <div class="flex justify-end gap-3 pt-4">
+                <button type="button" onclick="toggleModal('add-student-modal')" class="text-slate-500 font-bold">Cancel</button>
+                <button type="submit" class="bg-blue-600 text-white px-8 py-2 rounded-xl font-bold">Save Profile</button>
             </div>
         </form>
     </div>
 
+    <!-- Add User Modal -->
     <div id="add-user-modal" class="hidden fixed inset-0 z-[120] flex items-center justify-center p-4">
         <div class="modal-overlay absolute inset-0" onclick="toggleModal('add-user-modal')"></div>
         <form id="user-form" class="bg-white rounded-3xl shadow-2xl w-full max-w-md relative z-10 p-8 space-y-4">
-            <h3 class="text-xl font-bold">New Account</h3>
-            <input type="text" id="u-user" placeholder="Username" required class="w-full p-4 border rounded-xl outline-none focus:ring-2 focus:ring-violet-400">
-            <input type="password" id="u-pass" placeholder="Password" required class="w-full p-4 border rounded-xl outline-none focus:ring-2 focus:ring-violet-400">
+            <h3 class="text-xl font-bold text-center">Create System User</h3>
+            <input type="text" id="u-user" placeholder="Username" required class="w-full p-4 border rounded-xl outline-none focus:ring-2 focus:ring-blue-400">
+            <input type="password" id="u-pass" placeholder="Password" required class="w-full p-4 border rounded-xl outline-none focus:ring-2 focus:ring-blue-400">
             <select id="u-role" class="w-full p-4 border rounded-xl">
                 <option value="superadmin">Super Administrator</option>
                 <option value="admin">Pastoral Leadership</option>
                 <option value="pastoral_staff">Pastoral Staff</option>
             </select>
-            <div class="flex justify-end gap-3"><button type="button" onclick="toggleModal('add-user-modal')">Cancel</button><button type="submit" class="bg-violet-600 text-white px-6 py-2 rounded-xl">Create Account</button></div>
+            <div class="flex justify-end gap-3 pt-4">
+                <button type="button" onclick="toggleModal('add-user-modal')">Cancel</button>
+                <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-xl font-bold">Create</button>
+            </div>
         </form>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, doc, setDoc, addDoc, onSnapshot, updateDoc, arrayUnion, deleteDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, doc, addDoc, onSnapshot, updateDoc, arrayUnion, deleteDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // --- CONFIG ---
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT.firebaseapp.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT.appspot.com",
-            messagingSenderId: "YOUR_ID",
-            appId: "YOUR_APP_ID"
+        // WELLFIELD SCHOOL CONFIGURATION
+        const firebaseConfig = {
+            apiKey: "AIzaSyDqsHKTvsXDHs5BM-tSQuvq20vJAk08Qqw",
+            authDomain: "wellfieldschool-9b038.firebaseapp.com",
+            projectId: "wellfieldschool-9b038",
+            storageBucket: "wellfieldschool-9b038.firebasestorage.app",
+            messagingSenderId: "460458994006",
+            appId: "1:460458994006:web:004515d6422d23445e4ef7"
         };
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'pastoral-prod';
+        
+        const appId = 'wellfield-pastoral-system'; // Unique key for the storage path
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
@@ -201,29 +218,23 @@
 
         let currentUser = null;
         let selectedStudentId = null;
-        let authInitialized = false;
+        let studentsList = [];
 
         const rolePermissions = {
-            superadmin: { canEdit: true, canAdd: true, label: "Super Administrator" },
-            admin: { canEdit: true, canAdd: true, label: "Pastoral Leadership" },
-            pastoral_staff: { canEdit: true, canAdd: true, label: "Pastoral Staff" },
-            teaching_staff: { canEdit: false, canAdd: false, label: "Teaching Staff" }
+            superadmin: { canEdit: true, canAdd: true, label: "Super Admin" },
+            admin: { canEdit: true, canAdd: true, label: "Pastoral Lead" },
+            pastoral_staff: { canEdit: true, canAdd: true, label: "Pastoral Staff" }
         };
 
-        // Initialize Auth
-        const initAuth = async () => {
-            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                await signInWithCustomToken(auth, __initial_auth_token);
-            } else {
-                await signInAnonymously(auth);
-            }
-        };
-
+        // Auth Logic
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                authInitialized = true;
-                const saved = localStorage.getItem('pastoral_secure_session');
-                if (saved) applySession(JSON.parse(saved));
+                const savedSession = localStorage.getItem('wellfield_session');
+                if (savedSession) {
+                    applySession(JSON.parse(savedSession));
+                }
+            } else {
+                signInAnonymously(auth).catch(err => console.error("Auth failed:", err));
             }
         });
 
@@ -238,95 +249,137 @@
                 document.getElementById('nav-users').classList.remove('hidden');
                 syncUsers();
             }
-            if (rolePermissions[session.role].canAdd) document.getElementById('btn-add-student').classList.remove('hidden');
+            if (rolePermissions[session.role].canAdd) {
+                document.getElementById('btn-add-student').classList.remove('hidden');
+            }
             syncStudents();
         }
 
+        // Data Sync
         function syncStudents() {
-            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'students'), (snap) => {
-                const grid = document.getElementById('student-grid');
-                grid.innerHTML = '';
-                snap.forEach(d => {
-                    const s = { id: d.id, ...d.data() };
-                    const card = document.createElement('div');
-                    card.className = "bg-white p-6 rounded-2xl border border-slate-100 card-hover cursor-pointer";
-                    card.onclick = () => openStudent(s);
-                    card.innerHTML = `<h3 class="font-bold text-lg">${s.name}</h3><p class="text-xs text-slate-400 font-bold uppercase">${s.year}</p>`;
-                    grid.appendChild(card);
-                });
-            }, (err) => console.error("Firestore error:", err));
+            const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'students');
+            onSnapshot(colRef, (snap) => {
+                studentsList = [];
+                snap.forEach(d => studentsList.push({ id: d.id, ...d.data() }));
+                renderStudents(studentsList);
+            }, (err) => {
+                console.error("Firestore Error:", err);
+                alert("Database Permission Error. Ensure Firestore Rules are set to allow authenticated access.");
+            });
         }
 
+        function renderStudents(list) {
+            const grid = document.getElementById('student-grid');
+            grid.innerHTML = '';
+            list.forEach(s => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-2xl border border-slate-100 card-hover cursor-pointer";
+                card.onclick = () => openStudent(s);
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-bold text-lg text-slate-900">${s.name}</h3>
+                        <span class="text-[10px] bg-blue-50 text-blue-600 px-2 py-1 rounded-md font-bold uppercase">${s.year}</span>
+                    </div>
+                    <p class="text-xs text-slate-400 line-clamp-2">${s.needs || 'No registered needs.'}</p>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        window.filterStudents = () => {
+            const query = document.getElementById('search-bar').value.toLowerCase();
+            const filtered = studentsList.filter(s => 
+                s.name.toLowerCase().includes(query) || 
+                s.year.toLowerCase().includes(query)
+            );
+            renderStudents(filtered);
+        };
+
         function syncUsers() {
-            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'users'), (snap) => {
+            const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'users');
+            onSnapshot(colRef, (snap) => {
                 const body = document.getElementById('users-table-body');
                 body.innerHTML = '';
                 snap.forEach(d => {
                     const u = { id: d.id, ...d.data() };
                     const row = document.createElement('tr');
-                    row.innerHTML = `<td class="p-4 font-bold">${u.username}</td><td class="p-4">${u.role}</td><td class="p-4"><button onclick="deleteUser('${u.id}')" class="text-red-400">Delete</button></td>`;
+                    row.innerHTML = `
+                        <td class="px-6 py-4 font-bold text-slate-700">${u.username}</td>
+                        <td class="px-6 py-4 text-sm text-slate-500">${u.role}</td>
+                        <td class="px-6 py-4">
+                            <button onclick="deleteUser('${u.id}')" class="text-red-400 hover:text-red-600 font-bold text-xs uppercase">Remove</button>
+                        </td>
+                    `;
                     body.appendChild(row);
                 });
             });
         }
 
-        window.openStudent = (s) => {
-            selectedStudentId = s.id;
-            document.getElementById('m-name').innerText = s.name;
-            document.getElementById('m-year').innerText = s.year;
-            document.getElementById('m-needs').innerText = s.needs || 'No recorded needs.';
-            document.getElementById('m-notes').innerHTML = (s.notes || []).map(n => `<div class="p-4 bg-white rounded-xl border border-slate-100"><p class="text-xs font-bold text-violet-600 mb-1">${n.author} • ${n.date || ''}</p><p class="text-sm">${n.text}</p></div>`).join('');
-            document.getElementById('btn-add-note-action').classList.toggle('hidden', !rolePermissions[currentUser.role].canEdit);
-            toggleModal('student-modal');
-        };
-
-        // FIXED SIGN IN LOGIC
+        // Login Submit
         document.getElementById('login-form').onsubmit = async (e) => {
             e.preventDefault();
             const btn = document.getElementById('login-btn');
             btn.disabled = true;
-            btn.innerText = "Authenticating...";
+            btn.innerText = "Checking...";
 
             const u = document.getElementById('username').value.trim();
             const p = document.getElementById('password').value.trim();
 
             try {
-                // First check the setup account
+                // Setup check
                 if (u === 'admin' && p === 'setup123') {
-                    // Check if any users exist. If not, allow setup account.
                     const userSnap = await getDocs(collection(db, 'artifacts', appId, 'public', 'data', 'users'));
                     if (userSnap.empty) {
-                        const session = { username: 'Initial Admin', role: 'superadmin' };
-                        localStorage.setItem('pastoral_secure_session', JSON.stringify(session));
+                        const session = { username: 'System Admin', role: 'superadmin' };
+                        localStorage.setItem('wellfield_session', JSON.stringify(session));
                         applySession(session);
                         return;
                     }
                 }
 
-                // Normal Login
-                const userSnap = await getDocs(collection(db, 'artifacts', appId, 'public', 'data', 'users'));
-                let success = false;
-                userSnap.forEach(d => {
+                // Database check
+                const snap = await getDocs(collection(db, 'artifacts', appId, 'public', 'data', 'users'));
+                let found = false;
+                snap.forEach(d => {
                     const data = d.data();
                     if (data.username === u && data.password === p) {
-                        success = true;
+                        found = true;
                         const session = { username: u, role: data.role };
-                        localStorage.setItem('pastoral_secure_session', JSON.stringify(session));
+                        localStorage.setItem('wellfield_session', JSON.stringify(session));
                         applySession(session);
                     }
                 });
 
-                if (!success) {
+                if (!found) {
                     document.getElementById('login-error').classList.remove('hidden');
                     setTimeout(() => document.getElementById('login-error').classList.add('hidden'), 3000);
                 }
             } catch (err) {
-                console.error("Login error", err);
-                alert("Database connection error. Check your Firebase config and rules.");
+                console.error(err);
+                alert("Database connection failed. Please check your config.");
             } finally {
                 btn.disabled = false;
                 btn.innerText = "Sign In";
             }
+        };
+
+        // Actions
+        window.openStudent = (s) => {
+            selectedStudentId = s.id;
+            document.getElementById('m-name').innerText = s.name;
+            document.getElementById('m-year').innerText = s.year;
+            document.getElementById('m-needs').innerText = s.needs || 'No recorded needs.';
+            document.getElementById('m-notes').innerHTML = (s.notes || []).map(n => `
+                <div class="p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-[10px] font-extrabold text-blue-600 uppercase">${n.author}</span>
+                        <span class="text-[10px] text-slate-300">${n.date}</span>
+                    </div>
+                    <p class="text-sm text-slate-600">${n.text}</p>
+                </div>
+            `).join('');
+            document.getElementById('btn-add-note-action').classList.toggle('hidden', !rolePermissions[currentUser.role].canEdit);
+            toggleModal('student-modal');
         };
 
         document.getElementById('student-form').onsubmit = async (e) => {
@@ -352,28 +405,29 @@
             toggleModal('add-user-modal');
         };
 
-        window.toggleModal = (id) => document.getElementById(id).classList.toggle('hidden');
-        window.deleteUser = async (id) => { if(confirm('Remove account?')) await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', id)); };
-        window.logout = () => { localStorage.removeItem('pastoral_secure_session'); location.reload(); };
-        window.switchView = (v) => {
-            document.getElementById('view-directory').classList.toggle('hidden', v !== 'directory');
-            document.getElementById('view-users').classList.toggle('hidden', v !== 'users');
-        };
         window.showNoteForm = async () => {
-            const txt = prompt("Confidential Note:");
+            const txt = prompt("Enter Confidential Pastoral Note:");
             if (txt) {
                 await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', selectedStudentId), {
-                    notes: arrayUnion({ 
-                        author: currentUser.username, 
-                        text: txt, 
-                        date: new Date().toLocaleDateString() 
+                    notes: arrayUnion({
+                        author: currentUser.username,
+                        text: txt,
+                        date: new Date().toLocaleDateString('en-GB', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' })
                     })
                 });
                 toggleModal('student-modal');
             }
         };
 
-        initAuth();
+        window.toggleModal = (id) => document.getElementById(id).classList.toggle('hidden');
+        window.deleteUser = async (id) => { if(confirm('Remove this user access?')) await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', id)); };
+        window.logout = () => { localStorage.removeItem('wellfield_session'); location.reload(); };
+        window.switchView = (v) => {
+            document.getElementById('view-directory').classList.toggle('hidden', v !== 'directory');
+            document.getElementById('view-users').classList.toggle('hidden', v !== 'users');
+            document.getElementById('nav-directory').className = v === 'directory' ? "w-full flex items-center gap-3 px-5 py-4 rounded-2xl bg-blue-600 text-white font-bold shadow-lg" : "w-full flex items-center gap-3 px-5 py-4 rounded-2xl text-slate-600 hover:bg-blue-50 font-bold transition-all";
+            document.getElementById('nav-users').className = v === 'users' ? "w-full flex items-center gap-3 px-5 py-4 rounded-2xl bg-blue-600 text-white font-bold shadow-lg" : "w-full flex items-center gap-3 px-5 py-4 rounded-2xl text-slate-600 hover:bg-blue-50 font-bold transition-all";
+        };
     </script>
 </body>
 </html>
