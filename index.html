@@ -15,6 +15,7 @@
         .modal-overlay { background-color: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px); }
         .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
         .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .logo-img { object-fit: contain; }
     </style>
 </head>
 <body class="text-slate-800">
@@ -24,8 +25,8 @@
         <div id="login-screen" class="flex-grow flex items-center justify-center p-4 bg-slate-50">
             <div class="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-md border border-slate-100">
                 <div class="text-center mb-8">
-                    <div class="inline-flex items-center justify-center w-20 h-20 bg-blue-600 text-white rounded-2xl shadow-lg shadow-blue-200 mb-6">
-                        <i class="fas fa-shield-halved text-4xl"></i>
+                    <div class="inline-flex items-center justify-center w-24 h-24 bg-white rounded-2xl shadow-lg border border-slate-50 mb-6 overflow-hidden">
+                        <img src="https://cdn.discordapp.com/attachments/1450890580367380564/1457484530934878430/image.png?ex=695c2bbe&is=695ada3e&hm=d55476b0890e63694ff1c7fa4bab30a5dcc6649826c93752777f424c74f098dd&" alt="Wellfield Logo" class="logo-img w-full h-full p-2">
                     </div>
                     <h1 class="text-3xl font-bold text-slate-900 tracking-tight">Wellfield Portal</h1>
                     <p class="text-slate-500 mt-2">Pastoral Information Management</p>
@@ -61,8 +62,8 @@
         <div id="dashboard" class="hidden flex-grow flex flex-col">
             <nav class="bg-white border-b border-slate-100 px-8 py-4 flex items-center justify-between sticky top-0 z-50 shadow-sm">
                 <div class="flex items-center gap-4">
-                    <div class="bg-blue-600 p-2.5 rounded-xl text-white shadow-md shadow-blue-100">
-                        <i class="fas fa-school text-xl"></i>
+                    <div class="bg-white w-12 h-12 rounded-xl border border-slate-100 shadow-sm overflow-hidden flex items-center justify-center">
+                        <img src="https://cdn.discordapp.com/attachments/1450890580367380564/1457484530934878430/image.png?ex=695c2bbe&is=695ada3e&hm=d55476b0890e63694ff1c7fa4bab30a5dcc6649826c93752777f424c74f098dd&" alt="Logo" class="logo-img w-full h-full p-1">
                     </div>
                     <div>
                         <h2 class="font-extrabold text-slate-900 leading-tight">Wellfield School</h2>
@@ -102,7 +103,7 @@
                         </header>
                         
                         <div class="mb-6">
-                            <input type="text" id="search-bar" onkeyup="filterStudents()" placeholder="Search by name or year group..." class="w-full max-w-md p-4 rounded-2xl border border-slate-200 outline-none focus:ring-2 focus:ring-blue-400">
+                            <input type="text" id="search-bar" onkeyup="filterStudents()" placeholder="Search by name, year, or usernames..." class="w-full max-w-md p-4 rounded-2xl border border-slate-200 outline-none focus:ring-2 focus:ring-blue-400">
                         </div>
 
                         <div id="student-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"></div>
@@ -138,11 +139,26 @@
             <div class="p-8 border-b border-slate-50 flex items-center justify-between">
                 <div>
                     <h3 class="text-2xl font-extrabold text-slate-900" id="m-name">...</h3>
-                    <p class="text-sm font-bold text-blue-600" id="m-year">...</p>
+                    <div class="flex items-center gap-2 mt-1">
+                        <span class="text-sm font-bold text-blue-600" id="m-year">...</span>
+                        <div id="m-timeout-badge" class="hidden bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full text-[10px] font-black uppercase flex items-center gap-1">
+                            <i class="fas fa-clock"></i> Timeout Pass
+                        </div>
+                    </div>
                 </div>
                 <button onclick="toggleModal('student-modal')" class="text-slate-300 text-3xl hover:text-slate-600">&times;</button>
             </div>
             <div class="p-8 overflow-y-auto bg-slate-50/30 space-y-6">
+                 <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-1">Roblox</p>
+                        <p class="text-sm font-semibold text-slate-700" id="m-roblox">N/A</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-1">Discord</p>
+                        <p class="text-sm font-semibold text-slate-700" id="m-discord">N/A</p>
+                    </div>
+                 </div>
                  <div>
                     <h4 class="text-xs font-bold uppercase text-slate-400 mb-2">Needs & Support</h4>
                     <div id="m-needs" class="bg-white p-4 rounded-xl border border-slate-200 text-sm font-medium"></div>
@@ -152,9 +168,16 @@
                     <div id="m-notes" class="space-y-4"></div>
                  </div>
             </div>
-            <div class="p-6 bg-white border-t border-slate-50 flex justify-end gap-2">
-                <button id="btn-add-note-action" onclick="showNoteForm()" class="hidden bg-blue-600 text-white px-6 py-2 rounded-xl text-sm font-bold">Add Entry</button>
-                <button onclick="toggleModal('student-modal')" class="px-6 py-2 rounded-xl text-slate-500 font-bold">Close</button>
+            <div class="p-6 bg-white border-t border-slate-50 flex justify-between items-center">
+                <div>
+                    <button id="btn-delete-student" onclick="deleteStudentAction()" class="hidden bg-red-50 text-red-600 px-4 py-2 rounded-xl text-xs font-bold hover:bg-red-100 transition-colors">
+                        <i class="fas fa-trash-alt mr-1"></i> DELETE PROFILE
+                    </button>
+                </div>
+                <div class="flex gap-2">
+                    <button id="btn-add-note-action" onclick="showNoteForm()" class="hidden bg-blue-600 text-white px-6 py-2 rounded-xl text-sm font-bold shadow-md shadow-blue-100">Add Entry</button>
+                    <button onclick="toggleModal('student-modal')" class="px-6 py-2 rounded-xl text-slate-500 font-bold">Close</button>
+                </div>
             </div>
         </div>
     </div>
@@ -162,16 +185,46 @@
     <!-- Add Student Modal -->
     <div id="add-student-modal" class="hidden fixed inset-0 z-[110] flex items-center justify-center p-4">
         <div class="modal-overlay absolute inset-0" onclick="toggleModal('add-student-modal')"></div>
-        <form id="student-form" class="bg-white rounded-3xl shadow-2xl w-full max-w-lg relative z-10 p-8 space-y-4">
+        <form id="student-form" class="bg-white rounded-3xl shadow-2xl w-full max-w-lg relative z-10 p-8 space-y-4 max-h-[90vh] overflow-y-auto custom-scrollbar">
             <h3 class="text-xl font-bold">New Student Profile</h3>
-            <input type="text" id="f-name" placeholder="Full Name" required class="w-full p-4 border rounded-xl outline-none focus:ring-2 focus:ring-blue-400">
-            <select id="f-year" class="w-full p-4 border rounded-xl">
-                <option>Year 7</option><option>Year 8</option><option>Year 9</option><option>Year 10</option><option>Year 11</option><option>Year 12</option><option>Year 13</option>
-            </select>
-            <textarea id="f-needs" placeholder="Pastoral Needs / Key Information" class="w-full p-4 border rounded-xl outline-none focus:ring-2 focus:ring-blue-400 h-32"></textarea>
+            
+            <div class="space-y-3">
+                <label class="block text-xs font-bold text-slate-500 uppercase">Core Information</label>
+                <input type="text" id="f-name" placeholder="Full Name" required class="w-full p-4 border rounded-xl outline-none focus:ring-2 focus:ring-blue-400">
+                <select id="f-year" class="w-full p-4 border rounded-xl">
+                    <option>Year 7</option><option>Year 8</option><option>Year 9</option><option>Year 10</option><option>Year 11</option><option>Year 12</option><option>Year 13</option>
+                </select>
+            </div>
+
+            <div class="space-y-3">
+                <label class="block text-xs font-bold text-slate-500 uppercase">Online Identifiers</label>
+                <div class="grid grid-cols-2 gap-3">
+                    <input type="text" id="f-roblox" placeholder="Roblox User" class="w-full p-3 border rounded-xl outline-none text-sm">
+                    <input type="text" id="f-discord" placeholder="Discord User" class="w-full p-3 border rounded-xl outline-none text-sm">
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
+                    <div>
+                        <p class="text-sm font-bold text-slate-700">Timeout Pass</p>
+                        <p class="text-[10px] text-slate-400">Enable "Out of Lesson" permission</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="f-timeout" class="sr-only peer">
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <label class="block text-xs font-bold text-slate-500 uppercase">Pastoral Record</label>
+                <textarea id="f-needs" placeholder="Pastoral Needs / Key Information" class="w-full p-4 border rounded-xl outline-none focus:ring-2 focus:ring-blue-400 h-24 text-sm"></textarea>
+            </div>
+
             <div class="flex justify-end gap-3 pt-4">
                 <button type="button" onclick="toggleModal('add-student-modal')" class="text-slate-500 font-bold">Cancel</button>
-                <button type="submit" class="bg-blue-600 text-white px-8 py-2 rounded-xl font-bold">Save Profile</button>
+                <button type="submit" class="bg-blue-600 text-white px-8 py-2 rounded-xl font-bold shadow-lg shadow-blue-100">Save Profile</button>
             </div>
         </form>
     </div>
@@ -200,7 +253,6 @@
         import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, doc, addDoc, onSnapshot, updateDoc, arrayUnion, deleteDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // WELLFIELD SCHOOL CONFIGURATION
         const firebaseConfig = {
             apiKey: "AIzaSyDqsHKTvsXDHs5BM-tSQuvq20vJAk08Qqw",
             authDomain: "wellfieldschool-9b038.firebaseapp.com",
@@ -210,7 +262,7 @@
             appId: "1:460458994006:web:004515d6422d23445e4ef7"
         };
         
-        const appId = 'wellfield-pastoral-system'; // Unique key for the storage path
+        const appId = 'wellfield-pastoral-system'; 
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
@@ -221,12 +273,11 @@
         let studentsList = [];
 
         const rolePermissions = {
-            superadmin: { canEdit: true, canAdd: true, label: "Super Admin" },
-            admin: { canEdit: true, canAdd: true, label: "Pastoral Lead" },
-            pastoral_staff: { canEdit: true, canAdd: true, label: "Pastoral Staff" }
+            superadmin: { canEdit: true, canAdd: true, canDelete: true, label: "Super Admin" },
+            admin: { canEdit: true, canAdd: true, canDelete: false, label: "Pastoral Lead" },
+            pastoral_staff: { canEdit: true, canAdd: true, canDelete: false, label: "Pastoral Staff" }
         };
 
-        // Auth Logic
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 const savedSession = localStorage.getItem('wellfield_session');
@@ -255,7 +306,6 @@
             syncStudents();
         }
 
-        // Data Sync
         function syncStudents() {
             const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'students');
             onSnapshot(colRef, (snap) => {
@@ -264,7 +314,6 @@
                 renderStudents(studentsList);
             }, (err) => {
                 console.error("Firestore Error:", err);
-                alert("Database Permission Error. Ensure Firestore Rules are set to allow authenticated access.");
             });
         }
 
@@ -273,12 +322,22 @@
             grid.innerHTML = '';
             list.forEach(s => {
                 const card = document.createElement('div');
-                card.className = "bg-white p-6 rounded-2xl border border-slate-100 card-hover cursor-pointer";
+                card.className = "bg-white p-6 rounded-2xl border border-slate-100 card-hover cursor-pointer relative";
                 card.onclick = () => openStudent(s);
+                
+                const timeoutIndicator = s.hasTimeoutPass 
+                    ? `<div class="absolute top-4 right-4 text-orange-500"><i class="fas fa-clock text-xs"></i></div>` 
+                    : '';
+
                 card.innerHTML = `
-                    <div class="flex justify-between items-start mb-2">
+                    ${timeoutIndicator}
+                    <div class="flex justify-between items-start mb-2 pr-6">
                         <h3 class="font-bold text-lg text-slate-900">${s.name}</h3>
-                        <span class="text-[10px] bg-blue-50 text-blue-600 px-2 py-1 rounded-md font-bold uppercase">${s.year}</span>
+                        <span class="text-[10px] bg-blue-50 text-blue-600 px-2 py-1 rounded-md font-bold uppercase shrink-0">${s.year}</span>
+                    </div>
+                    <div class="flex gap-2 mb-3">
+                        ${s.roblox ? `<span class="text-[9px] bg-slate-100 px-1.5 py-0.5 rounded text-slate-500"><i class="fas fa-gamepad mr-1"></i>${s.roblox}</span>` : ''}
+                        ${s.discord ? `<span class="text-[9px] bg-indigo-50 px-1.5 py-0.5 rounded text-indigo-500"><i class="fab fa-discord mr-1"></i>${s.discord}</span>` : ''}
                     </div>
                     <p class="text-xs text-slate-400 line-clamp-2">${s.needs || 'No registered needs.'}</p>
                 `;
@@ -290,7 +349,9 @@
             const query = document.getElementById('search-bar').value.toLowerCase();
             const filtered = studentsList.filter(s => 
                 s.name.toLowerCase().includes(query) || 
-                s.year.toLowerCase().includes(query)
+                s.year.toLowerCase().includes(query) ||
+                (s.roblox && s.roblox.toLowerCase().includes(query)) ||
+                (s.discord && s.discord.toLowerCase().includes(query))
             );
             renderStudents(filtered);
         };
@@ -303,19 +364,20 @@
                 snap.forEach(d => {
                     const u = { id: d.id, ...d.data() };
                     const row = document.createElement('tr');
+                    const actionsHtml = currentUser && currentUser.role === 'superadmin' 
+                        ? `<button onclick="deleteUser('${u.id}')" class="text-red-400 hover:text-red-600 font-bold text-xs uppercase">Remove</button>`
+                        : `<span class="text-slate-300 text-xs italic">Read-only</span>`;
+                    
                     row.innerHTML = `
                         <td class="px-6 py-4 font-bold text-slate-700">${u.username}</td>
                         <td class="px-6 py-4 text-sm text-slate-500">${u.role}</td>
-                        <td class="px-6 py-4">
-                            <button onclick="deleteUser('${u.id}')" class="text-red-400 hover:text-red-600 font-bold text-xs uppercase">Remove</button>
-                        </td>
+                        <td class="px-6 py-4">${actionsHtml}</td>
                     `;
                     body.appendChild(row);
                 });
             });
         }
 
-        // Login Submit
         document.getElementById('login-form').onsubmit = async (e) => {
             e.preventDefault();
             const btn = document.getElementById('login-btn');
@@ -326,7 +388,6 @@
             const p = document.getElementById('password').value.trim();
 
             try {
-                // Setup check
                 if (u === 'admin' && p === 'setup123') {
                     const userSnap = await getDocs(collection(db, 'artifacts', appId, 'public', 'data', 'users'));
                     if (userSnap.empty) {
@@ -337,7 +398,6 @@
                     }
                 }
 
-                // Database check
                 const snap = await getDocs(collection(db, 'artifacts', appId, 'public', 'data', 'users'));
                 let found = false;
                 snap.forEach(d => {
@@ -356,18 +416,19 @@
                 }
             } catch (err) {
                 console.error(err);
-                alert("Database connection failed. Please check your config.");
             } finally {
                 btn.disabled = false;
                 btn.innerText = "Sign In";
             }
         };
 
-        // Actions
         window.openStudent = (s) => {
             selectedStudentId = s.id;
             document.getElementById('m-name').innerText = s.name;
             document.getElementById('m-year').innerText = s.year;
+            document.getElementById('m-roblox').innerText = s.roblox || 'N/A';
+            document.getElementById('m-discord').innerText = s.discord || 'N/A';
+            document.getElementById('m-timeout-badge').classList.toggle('hidden', !s.hasTimeoutPass);
             document.getElementById('m-needs').innerText = s.needs || 'No recorded needs.';
             document.getElementById('m-notes').innerHTML = (s.notes || []).map(n => `
                 <div class="p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
@@ -378,8 +439,18 @@
                     <p class="text-sm text-slate-600">${n.text}</p>
                 </div>
             `).join('');
+            
             document.getElementById('btn-add-note-action').classList.toggle('hidden', !rolePermissions[currentUser.role].canEdit);
+            document.getElementById('btn-delete-student').classList.toggle('hidden', !rolePermissions[currentUser.role].canDelete);
+            
             toggleModal('student-modal');
+        };
+
+        window.deleteStudentAction = async () => {
+            if(confirm('Are you absolutely sure you want to delete this student profile? This action cannot be undone.')) {
+                await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', selectedStudentId));
+                toggleModal('student-modal');
+            }
         };
 
         document.getElementById('student-form').onsubmit = async (e) => {
@@ -387,6 +458,9 @@
             await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'students'), {
                 name: document.getElementById('f-name').value,
                 year: document.getElementById('f-year').value,
+                roblox: document.getElementById('f-roblox').value,
+                discord: document.getElementById('f-discord').value,
+                hasTimeoutPass: document.getElementById('f-timeout').checked,
                 needs: document.getElementById('f-needs').value,
                 notes: []
             });
@@ -415,12 +489,15 @@
                         date: new Date().toLocaleDateString('en-GB', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' })
                     })
                 });
-                toggleModal('student-modal');
             }
         };
 
         window.toggleModal = (id) => document.getElementById(id).classList.toggle('hidden');
-        window.deleteUser = async (id) => { if(confirm('Remove this user access?')) await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', id)); };
+        window.deleteUser = async (id) => { 
+            if(confirm('Permanently remove this user access?')) {
+                await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', id));
+            }
+        };
         window.logout = () => { localStorage.removeItem('wellfield_session'); location.reload(); };
         window.switchView = (v) => {
             document.getElementById('view-directory').classList.toggle('hidden', v !== 'directory');
