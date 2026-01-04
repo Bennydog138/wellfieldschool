@@ -53,9 +53,6 @@
                         <span>Sign In</span>
                     </button>
                 </form>
-                <div class="mt-8 text-center text-xs text-slate-400 uppercase tracking-widest font-bold">
-                    System Protected & Logged
-                </div>
             </div>
         </div>
 
@@ -96,7 +93,7 @@
                         <header class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
                             <div>
                                 <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Students</h1>
-                                <p class="text-slate-500 font-medium">Confidential documentation</p>
+                                <p class="text-slate-500 font-medium">Confidential pastoral documentation</p>
                             </div>
                             <button id="btn-add-student" onclick="showAddStudentModal()" class="hidden bg-slate-900 hover:bg-black text-white px-6 py-3 rounded-2xl font-bold flex items-center gap-2 transition-all shadow-xl shadow-slate-200">
                                 <i class="fas fa-plus"></i> New Student Profile
@@ -109,11 +106,8 @@
                         <header class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
                             <div>
                                 <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">System Users</h1>
-                                <p class="text-slate-500 font-medium">Manage access levels</p>
                             </div>
-                            <button onclick="toggleModal('add-user-modal')" class="bg-violet-600 hover:bg-violet-700 text-white px-6 py-3 rounded-2xl font-bold flex items-center gap-2 transition-all shadow-xl shadow-violet-200">
-                                <i class="fas fa-user-plus"></i> Create Account
-                            </button>
+                            <button onclick="toggleModal('add-user-modal')" class="bg-violet-600 text-white px-6 py-3 rounded-2xl font-bold">Create Account</button>
                         </header>
                         <div class="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm">
                             <table class="w-full text-left">
@@ -133,27 +127,23 @@
         </div>
     </div>
 
-    <!-- Modals (Re-using structure from previous, cleaned up) -->
+    <!-- Modals -->
     <div id="student-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
         <div class="modal-overlay absolute inset-0" onclick="toggleModal('student-modal')"></div>
         <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl relative z-10 overflow-hidden flex flex-col max-h-[90vh]">
             <div class="p-8 border-b border-slate-50 flex items-center justify-between">
-                <div class="flex items-center gap-5">
-                    <div class="w-16 h-16 bg-slate-900 rounded-2xl flex items-center justify-center text-white text-2xl font-bold" id="m-avatar">?</div>
-                    <div>
-                        <h3 class="text-2xl font-extrabold text-slate-900" id="m-name">...</h3>
-                        <p class="text-sm font-bold text-violet-600" id="m-year">...</p>
-                    </div>
+                <div>
+                    <h3 class="text-2xl font-extrabold text-slate-900" id="m-name">...</h3>
+                    <p class="text-sm font-bold text-violet-600" id="m-year">...</p>
                 </div>
-                <button onclick="toggleModal('student-modal')" class="text-slate-300 hover:text-slate-900 text-3xl"><i class="fas fa-times"></i></button>
+                <button onclick="toggleModal('student-modal')" class="text-slate-300 text-3xl">&times;</button>
             </div>
-            <div class="p-8 overflow-y-auto custom-scrollbar bg-slate-50/30 space-y-6">
+            <div class="p-8 overflow-y-auto bg-slate-50/30 space-y-6">
                  <div id="m-needs" class="bg-amber-50 p-4 rounded-xl border border-amber-100 text-sm font-medium"></div>
                  <div id="m-notes" class="space-y-4"></div>
             </div>
             <div class="p-6 bg-white border-t border-slate-50 flex justify-end gap-2">
                 <button id="btn-add-note-action" onclick="showNoteForm()" class="hidden bg-violet-600 text-white px-6 py-2 rounded-xl text-sm font-bold">Add Note</button>
-                <button onclick="toggleModal('student-modal')" class="px-6 py-2 rounded-xl text-slate-600 font-bold">Close</button>
             </div>
         </div>
     </div>
@@ -162,50 +152,48 @@
         <div class="modal-overlay absolute inset-0" onclick="toggleModal('add-student-modal')"></div>
         <form id="student-form" class="bg-white rounded-3xl shadow-2xl w-full max-w-lg relative z-10 p-8 space-y-4">
             <h3 class="text-xl font-bold">New Student Profile</h3>
-            <input type="text" id="f-name" placeholder="Full Name" required class="w-full p-4 border rounded-xl">
+            <input type="text" id="f-name" placeholder="Full Name" required class="w-full p-4 border rounded-xl outline-none focus:ring-2 focus:ring-violet-400">
             <select id="f-year" class="w-full p-4 border rounded-xl">
                 <option>Year 7</option><option>Year 8</option><option>Year 9</option><option>Year 10</option><option>Year 11</option><option>Year 12</option><option>Year 13</option>
             </select>
-            <textarea id="f-needs" placeholder="Needs & Support" class="w-full p-4 border rounded-xl"></textarea>
-            <div class="flex justify-end gap-3"><button type="button" onclick="toggleModal('add-student-modal')">Cancel</button><button type="submit" class="bg-black text-white px-6 py-2 rounded-xl">Create</button></div>
+            <textarea id="f-needs" placeholder="Needs & Support" class="w-full p-4 border rounded-xl outline-none focus:ring-2 focus:ring-violet-400"></textarea>
+            <div class="flex justify-end gap-3">
+                <button type="button" onclick="toggleModal('add-student-modal')">Cancel</button>
+                <button type="submit" class="bg-black text-white px-6 py-2 rounded-xl">Create</button>
+            </div>
         </form>
     </div>
 
     <div id="add-user-modal" class="hidden fixed inset-0 z-[120] flex items-center justify-center p-4">
         <div class="modal-overlay absolute inset-0" onclick="toggleModal('add-user-modal')"></div>
         <form id="user-form" class="bg-white rounded-3xl shadow-2xl w-full max-w-md relative z-10 p-8 space-y-4">
-            <h3 class="text-xl font-bold">New System Account</h3>
-            <input type="text" id="u-user" placeholder="Username" required class="w-full p-4 border rounded-xl">
-            <input type="password" id="u-pass" placeholder="Password" required class="w-full p-4 border rounded-xl">
+            <h3 class="text-xl font-bold">New Account</h3>
+            <input type="text" id="u-user" placeholder="Username" required class="w-full p-4 border rounded-xl outline-none focus:ring-2 focus:ring-violet-400">
+            <input type="password" id="u-pass" placeholder="Password" required class="w-full p-4 border rounded-xl outline-none focus:ring-2 focus:ring-violet-400">
             <select id="u-role" class="w-full p-4 border rounded-xl">
                 <option value="superadmin">Super Administrator</option>
                 <option value="admin">Pastoral Leadership</option>
                 <option value="pastoral_staff">Pastoral Staff</option>
             </select>
-            <div class="flex justify-end gap-3"><button type="button" onclick="toggleModal('add-user-modal')">Cancel</button><button type="submit" class="bg-violet-600 text-white px-6 py-2 rounded-xl">Create</button></div>
+            <div class="flex justify-end gap-3"><button type="button" onclick="toggleModal('add-user-modal')">Cancel</button><button type="submit" class="bg-violet-600 text-white px-6 py-2 rounded-xl">Create Account</button></div>
         </form>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, doc, setDoc, addDoc, onSnapshot, updateDoc, arrayUnion, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, doc, setDoc, addDoc, onSnapshot, updateDoc, arrayUnion, deleteDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // --- CONFIGURATION ---
-        // If hosting on GitHub, you MUST replace these with your actual Firebase project config
-        const firebaseConfig = typeof __firebase_config !== 'undefined' 
-            ? JSON.parse(__firebase_config) 
-            : {
-                apiKey: "YOUR_API_KEY",
-                authDomain: "YOUR_PROJECT.firebaseapp.com",
-                projectId: "YOUR_PROJECT_ID",
-                storageBucket: "YOUR_PROJECT.appspot.com",
-                messagingSenderId: "YOUR_ID",
-                appId: "YOUR_APP_ID"
-            };
-
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'pastoral-app-prod';
-        // ---------------------
+        // --- CONFIG ---
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT.appspot.com",
+            messagingSenderId: "YOUR_ID",
+            appId: "YOUR_APP_ID"
+        };
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'pastoral-prod';
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
@@ -213,6 +201,7 @@
 
         let currentUser = null;
         let selectedStudentId = null;
+        let authInitialized = false;
 
         const rolePermissions = {
             superadmin: { canEdit: true, canAdd: true, label: "Super Administrator" },
@@ -221,12 +210,20 @@
             teaching_staff: { canEdit: false, canAdd: false, label: "Teaching Staff" }
         };
 
+        // Initialize Auth
+        const initAuth = async () => {
+            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                await signInWithCustomToken(auth, __initial_auth_token);
+            } else {
+                await signInAnonymously(auth);
+            }
+        };
+
         onAuthStateChanged(auth, (user) => {
             if (user) {
+                authInitialized = true;
                 const saved = localStorage.getItem('pastoral_secure_session');
                 if (saved) applySession(JSON.parse(saved));
-            } else {
-                signInAnonymously(auth);
             }
         });
 
@@ -257,7 +254,7 @@
                     card.innerHTML = `<h3 class="font-bold text-lg">${s.name}</h3><p class="text-xs text-slate-400 font-bold uppercase">${s.year}</p>`;
                     grid.appendChild(card);
                 });
-            });
+            }, (err) => console.error("Firestore error:", err));
         }
 
         function syncUsers() {
@@ -277,37 +274,59 @@
             selectedStudentId = s.id;
             document.getElementById('m-name').innerText = s.name;
             document.getElementById('m-year').innerText = s.year;
-            document.getElementById('m-needs').innerText = s.needs || 'No registered needs.';
-            document.getElementById('m-notes').innerHTML = (s.notes || []).map(n => `<div class="p-4 bg-white rounded-xl border border-slate-100"><p class="text-xs font-bold text-violet-600 mb-1">${n.author}</p><p class="text-sm">${n.text}</p></div>`).join('');
+            document.getElementById('m-needs').innerText = s.needs || 'No recorded needs.';
+            document.getElementById('m-notes').innerHTML = (s.notes || []).map(n => `<div class="p-4 bg-white rounded-xl border border-slate-100"><p class="text-xs font-bold text-violet-600 mb-1">${n.author} • ${n.date || ''}</p><p class="text-sm">${n.text}</p></div>`).join('');
             document.getElementById('btn-add-note-action').classList.toggle('hidden', !rolePermissions[currentUser.role].canEdit);
             toggleModal('student-modal');
         };
 
-        document.getElementById('login-form').onsubmit = (e) => {
+        // FIXED SIGN IN LOGIC
+        document.getElementById('login-form').onsubmit = async (e) => {
             e.preventDefault();
-            const u = document.getElementById('username').value;
-            const p = document.getElementById('password').value;
-            
-            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'users'), (snap) => {
-                let found = false;
-                if (snap.empty && u === 'admin' && p === 'setup123') {
-                    found = true;
-                    const s = { username: 'Initial Admin', role: 'superadmin' };
-                    localStorage.setItem('pastoral_secure_session', JSON.stringify(s));
-                    applySession(s);
-                } else {
-                    snap.forEach(d => {
-                        const data = d.data();
-                        if (data.username === u && data.password === p) {
-                            found = true;
-                            const s = { username: u, role: data.role };
-                            localStorage.setItem('pastoral_secure_session', JSON.stringify(s));
-                            applySession(s);
-                        }
-                    });
+            const btn = document.getElementById('login-btn');
+            btn.disabled = true;
+            btn.innerText = "Authenticating...";
+
+            const u = document.getElementById('username').value.trim();
+            const p = document.getElementById('password').value.trim();
+
+            try {
+                // First check the setup account
+                if (u === 'admin' && p === 'setup123') {
+                    // Check if any users exist. If not, allow setup account.
+                    const userSnap = await getDocs(collection(db, 'artifacts', appId, 'public', 'data', 'users'));
+                    if (userSnap.empty) {
+                        const session = { username: 'Initial Admin', role: 'superadmin' };
+                        localStorage.setItem('pastoral_secure_session', JSON.stringify(session));
+                        applySession(session);
+                        return;
+                    }
                 }
-                if (!found) document.getElementById('login-error').classList.remove('hidden');
-            }, { onlyOnce: true });
+
+                // Normal Login
+                const userSnap = await getDocs(collection(db, 'artifacts', appId, 'public', 'data', 'users'));
+                let success = false;
+                userSnap.forEach(d => {
+                    const data = d.data();
+                    if (data.username === u && data.password === p) {
+                        success = true;
+                        const session = { username: u, role: data.role };
+                        localStorage.setItem('pastoral_secure_session', JSON.stringify(session));
+                        applySession(session);
+                    }
+                });
+
+                if (!success) {
+                    document.getElementById('login-error').classList.remove('hidden');
+                    setTimeout(() => document.getElementById('login-error').classList.add('hidden'), 3000);
+                }
+            } catch (err) {
+                console.error("Login error", err);
+                alert("Database connection error. Check your Firebase config and rules.");
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Sign In";
+            }
         };
 
         document.getElementById('student-form').onsubmit = async (e) => {
@@ -318,6 +337,7 @@
                 needs: document.getElementById('f-needs').value,
                 notes: []
             });
+            e.target.reset();
             toggleModal('add-student-modal');
         };
 
@@ -328,27 +348,32 @@
                 password: document.getElementById('u-pass').value,
                 role: document.getElementById('u-role').value
             });
+            e.target.reset();
             toggleModal('add-user-modal');
         };
 
         window.toggleModal = (id) => document.getElementById(id).classList.toggle('hidden');
-        window.deleteUser = async (id) => { if(confirm('Remove?')) await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', id)); };
+        window.deleteUser = async (id) => { if(confirm('Remove account?')) await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', id)); };
         window.logout = () => { localStorage.removeItem('pastoral_secure_session'); location.reload(); };
         window.switchView = (v) => {
             document.getElementById('view-directory').classList.toggle('hidden', v !== 'directory');
             document.getElementById('view-users').classList.toggle('hidden', v !== 'users');
         };
         window.showNoteForm = async () => {
-            const txt = prompt("Enter Pastoral Note:");
+            const txt = prompt("Confidential Note:");
             if (txt) {
                 await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'students', selectedStudentId), {
-                    notes: arrayUnion({ author: currentUser.username, text: txt, date: new Date().toISOString() })
+                    notes: arrayUnion({ 
+                        author: currentUser.username, 
+                        text: txt, 
+                        date: new Date().toLocaleDateString() 
+                    })
                 });
                 toggleModal('student-modal');
             }
         };
 
-        signInAnonymously(auth);
+        initAuth();
     </script>
 </body>
 </html>
